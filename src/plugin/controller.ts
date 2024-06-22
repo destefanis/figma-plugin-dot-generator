@@ -1,4 +1,4 @@
-figma.showUI(__html__, { width: 300, height: 400 });
+figma.showUI(__html__, { width: 272, height: 400 });
 
 figma.ui.onmessage = msg => {
   if (msg.type === 'applyConfig') {
@@ -15,7 +15,7 @@ figma.ui.onmessage = msg => {
     frame.name = 'Dots';
     frame.fills = [{
       type: "SOLID",
-      color: { r: .05, g: .05, b: .05 }
+      color: { r: 0.952941176, g: 0.917647059, b: 0.88627451 }
     }];
 
     let dots = [];
@@ -43,7 +43,7 @@ figma.ui.onmessage = msg => {
 
         let c = drawDot(x, y, gridSize / 2 * dotScale, [{
           type: "SOLID",
-          color: { r: .3, g: .3, b: .3 }
+          color: { r: 0.156862745, g: 0.254901961, b: 0.443137255 }
         }]);
 
         frame.appendChild(c);

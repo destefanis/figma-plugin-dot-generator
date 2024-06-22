@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Counter from "./Counter";
 import '../styles/ui.css';
 
 function App() {
@@ -8,14 +9,20 @@ function App() {
   const [dotScale, setDotScale] = useState(1);
   const [padding, setPadding] = useState(100);
 
+  const [count, setCount] = useState(9);
+
+  const handleCountChange = (newCount) => {
+    setCount(newCount);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const config = {
-      rings,
-      seed,
-      gridSize,
-      dotScale,
-      padding
+      rings: Number(rings),
+      seed: Number(seed),
+      gridSize: Number(gridSize),
+      dotScale: Number(dotScale),
+      padding: Number(padding),
     };
     parent.postMessage({ pluginMessage: { type: 'applyConfig', config } }, '*');
   };
@@ -23,26 +30,12 @@ function App() {
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
-        <label>
-          Rings:
-          <input type="number" value={rings} onChange={(e) => setRings(e.target.value)} />
-        </label>
-        <label>
-          Seed:
-          <input type="number" value={seed} onChange={(e) => setSeed(e.target.value)} />
-        </label>
-        <label>
-          Grid Size:
-          <input type="number" value={gridSize} onChange={(e) => setGridSize(e.target.value)} />
-        </label>
-        <label>
-          Dot Scale:
-          <input type="number" value={dotScale} onChange={(e) => setDotScale(e.target.value)} />
-        </label>
-        <label>
-          Padding:
-          <input type="number" value={padding} onChange={(e) => setPadding(e.target.value)} />
-        </label>
+      <Counter label="Rings" count={rings} onCountChange={setRings} min={1} max={100} />
+      <Counter label="Seed" count={seed} onCountChange={setSeed} min={1} max={100} />
+      <Counter label="Grid Size" count={gridSize} onCountChange={setGridSize} min={1} max={100} />
+      <Counter label="Dot Scale" count={dotScale} onCountChange={setDotScale} min={0.1} max={10} />
+      <Counter label="Padding" count={padding} onCountChange={setPadding} min={0} max={200} />
+
         <button type="submit">Apply</button>
       </form>
     </div>
