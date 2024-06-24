@@ -2,7 +2,7 @@ figma.showUI(__html__, { width: 272, height: 400 });
 
 figma.ui.onmessage = msg => {
   if (msg.type === 'applyConfig') {
-    const { rings, seed, gridSize, dotScale, padding } = msg.config;
+    const { rings, seed, gridSize, dotScale, padding, dotColor, frameColor } = msg.config;
 
     // Clear previous dots
     figma.currentPage.children.forEach(child => {
@@ -15,7 +15,7 @@ figma.ui.onmessage = msg => {
     frame.name = 'Dots';
     frame.fills = [{
       type: "SOLID",
-      color: { r: 0.952941176, g: 0.917647059, b: 0.88627451 }
+      color: frameColor
     }];
 
     let dots = [];
@@ -43,7 +43,7 @@ figma.ui.onmessage = msg => {
 
         let c = drawDot(x, y, gridSize / 2 * dotScale, [{
           type: "SOLID",
-          color: { r: 0.156862745, g: 0.254901961, b: 0.443137255 }
+          color: dotColor
         }]);
 
         frame.appendChild(c);
@@ -53,7 +53,7 @@ figma.ui.onmessage = msg => {
 
     let c = drawDot(0, 0, gridSize / 2 * dotScale, [{
       type: "SOLID",
-      color: { r: 0.156862745, g: 0.254901961, b: 0.443137255 }
+      color: dotColor
     }]);
     frame.appendChild(c);
     dots.push(c);

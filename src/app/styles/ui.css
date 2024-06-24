@@ -181,6 +181,7 @@ button:focus {
   justify-content: center;
   width: 100%;
   height: 32px;
+  margin-top: 16px;
   border-radius: 6px;
   text-align: center;
   color: #fff;
@@ -188,4 +189,87 @@ button:focus {
   font-size: 12px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  height: 54px;
+  margin: 0 8px;
+}
+
+.toggle-label {
+  flex-grow: 1;
+  font-family: "SN Pro", "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 14px;
+  color: #4d4d4d;
+}
+
+.toggle-switch {
+  width: 40px;
+  height: 24px;
+  border-radius: 12px;
+  background-color: #dedede;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.15s ease-out;
+}
+
+.toggle-switch.checked {
+  background-color: #18A0FB;
+}
+
+.toggle-handle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 2px;
+  transform: translateX(2px);
+  transition: transform 0.15s ease-out;
+}
+
+.toggle-switch.checked .toggle-handle {
+  transform: translateX(18px);
+}
+
+.color-scheme-picker {
+  height: 54px;
+  margin: 0 8px;
+  display: flex;
+  align-items: center;
+}
+
+.color-scheme-label {
+  font-size: 12px;
+  margin-right: 8px;
+  flex-grow: 1;
+}
+
+.color-scheme-options {
+  display: flex;
+}
+
+.color-scheme-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  display: flex;
+  overflow: hidden;
+  margin-left: 15px;
+  cursor: pointer;
+  position: relative;
+}
+
+.color-scheme-circle.active {
+  border-color: #18A0FB;
+}
+
+.color-scheme-half {
+  width: 50%;
+  height: 100%;
 }
