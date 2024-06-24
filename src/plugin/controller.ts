@@ -53,7 +53,7 @@ figma.ui.onmessage = msg => {
 
     let c = drawDot(0, 0, gridSize / 2 * dotScale, [{
       type: "SOLID",
-      color: { r: .3, g: .3, b: .3 }
+      color: { r: 0.156862745, g: 0.254901961, b: 0.443137255 }
     }]);
     frame.appendChild(c);
     dots.push(c);

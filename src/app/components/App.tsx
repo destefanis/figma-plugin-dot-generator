@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 import Counter from "./Counter";
+import DecimalCounter from "./DecimalCounter";
 import '../styles/ui.css';
 
 function App() {
-  const [rings, setRings] = useState(30);
+  const [rings, setRings] = useState(10);
   const [seed, setSeed] = useState(6);
-  const [gridSize, setGridSize] = useState(30);
-  const [dotScale, setDotScale] = useState(1);
-  const [padding, setPadding] = useState(100);
+  const [gridSize, setGridSize] = useState(15);
+  const [dotScale, setDotScale] = useState(1.0);
+  const [padding, setPadding] = useState(64);
+  const [livePreview, setLivePreview] = useState(true);
 
-  const [count, setCount] = useState(9);
-
-  const handleCountChange = (newCount) => {
-    setCount(newCount);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleGenerate = () => {
+    // Run your plugin or perform the desired action here
     const config = {
       rings: Number(rings),
       seed: Number(seed),
-      gridSize: Number(gridSize),
+      gridSize: Number(gridSize * 2),
       dotScale: Number(dotScale),
       padding: Number(padding),
     };
@@ -29,15 +25,22 @@ function App() {
 
   return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
-      <Counter label="Rings" count={rings} onCountChange={setRings} min={1} max={100} />
-      <Counter label="Seed" count={seed} onCountChange={setSeed} min={1} max={100} />
-      <Counter label="Grid Size" count={gridSize} onCountChange={setGridSize} min={1} max={100} />
-      <Counter label="Dot Scale" count={dotScale} onCountChange={setDotScale} min={0.1} max={10} />
-      <Counter label="Padding" count={padding} onCountChange={setPadding} min={0} max={200} />
+      <Counter label="Total rings" count={rings} onCountChange={setRings} min={1} max={100} onEnterPress={handleGenerate}/>
+      <Counter label="First ring size" count={seed} onCountChange={setSeed} min={1} max={100} onEnterPress={handleGenerate}/>
+      <Counter label="Dot size" count={gridSize} onCountChange={setGridSize} min={1} max={100} onEnterPress={handleGenerate}/>
+      <DecimalCounter label="Dot scale" count={dotScale} onCountChange={setDotScale} min={0.1} max={3} step={0.1} onEnterPress={handleGenerate} />
+      {/* <label>
+        <input
+          type="checkbox"
+          checked={livePreview}
+          onChange={(e) => setLivePreview(e.target.checked)}
+        />
+        Live Preview
+      </label> */}
 
-        <button type="submit">Apply</button>
-      </form>
+      <div className="cta-button" onClick={handleGenerate}>
+        Generate
+      </div>
     </div>
   );
 }

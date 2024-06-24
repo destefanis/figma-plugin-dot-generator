@@ -3,34 +3,34 @@ import PropTypes from "prop-types";
 import plus from "../assets/plus-icon.svg";
 import minus from "../assets/minus-icon.svg";
 
-const Counter = ({ label, count, onCountChange, min, max, onEnterPress }) => {
+const DecimalCounter = ({ label, count, onCountChange, min, max, step, onEnterPress }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleIncrement = () => {
-    const newCount = count >= max ? max : count + 1;
+    const newCount = count >= max ? max : parseFloat((count + step).toFixed(1));
     onCountChange(newCount);
   };
 
   const handleDecrement = () => {
-    const newCount = count <= min ? min : count - 1;
+    const newCount = count <= min ? min : parseFloat((count - step).toFixed(1));
     onCountChange(newCount);
   };
 
   const handleInputChange = (e) => {
     const input = e.target.value;
-    const newCount = parseInt(input, 10);
+    const newCount = parseFloat(input);
 
-    // If input is not empty, ensure it's within min and max and doesn't exceed length constraints
+    // If input is not empty, ensure it's within min and max and is a valid decimal number
     if (
       input === "" ||
-      (!isNaN(newCount) && input.length <= max.toString().length)
+      (!isNaN(newCount) && newCount.toFixed(1).length <= max.toFixed(1).length)
     ) {
       onCountChange(input === "" ? "" : newCount);
     }
   };
 
   const handleBlur = () => {
-    if (count === "" || count < min || count === 0) {
+    if (count === "" || count < min) {
       onCountChange(min);
     } else if (count > max) {
       onCountChange(max);
@@ -44,9 +44,6 @@ const Counter = ({ label, count, onCountChange, min, max, onEnterPress }) => {
       onEnterPress();
     }
   };
-
-  // Convert count to an array of digits
-  const countDigits = count.toString().split("");
 
   return (
     <div className="counter-wrapper">
@@ -71,19 +68,16 @@ const Counter = ({ label, count, onCountChange, min, max, onEnterPress }) => {
                 onKeyDown={handleKeyDown}
                 className="counter-input"
                 autoFocus
+                step={step}
+                min={min}
+                max={max}
               />
             ) : (
               <div
                 className="digits-container"
                 onClick={() => setIsEditing(true)}
               >
-                {countDigits.map((digit, index) => (
-                  <div key={index} className="digit-container">
-                    <span className="counter-number">
-                      {digit}
-                    </span>
-                  </div>
-                ))}
+                <span className="counter-number">{count}</span>
               </div>
             )}
           </div>
@@ -99,13 +93,14 @@ const Counter = ({ label, count, onCountChange, min, max, onEnterPress }) => {
   );
 };
 
-Counter.propTypes = {
+DecimalCounter.propTypes = {
   label: PropTypes.string,
   count: PropTypes.number.isRequired,
   onCountChange: PropTypes.func.isRequired,
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
-  onEnterPress: PropTypes.func.isRequired
+  step: PropTypes.number.isRequired,
+  onEnterPress: PropTypes.func.isRequired,
 };
 
-export default Counter;
+export default DecimalCounter;
