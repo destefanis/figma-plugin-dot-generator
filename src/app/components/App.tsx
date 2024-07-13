@@ -6,7 +6,7 @@ import ColorSchemePicker from "./ColorSchemePicker";
 import '../styles/ui.css';
 
 function App() {
-  const [rings, setRings] = useState(10);
+  const [rings, setRings] = useState(7);
   const [seed, setSeed] = useState(6);
   const [gridSize, setGridSize] = useState(15);
   const [dotScale, setDotScale] = useState(1.0);

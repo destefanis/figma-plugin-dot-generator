@@ -265,6 +265,15 @@ button:focus {
   position: relative;
 }
 
+.circle-0 {
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.circle-0.active {
+  border-color: #18A0FB;
+  box-shadow: none;
+}
+
 .color-scheme-circle.active {
   border-color: #18A0FB;
 }

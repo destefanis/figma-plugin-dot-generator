@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const colorSchemes = [
 //   { dotColor: '#294172', frameColor: '#DCB7B6' },
-  { dotColor: '#282116', frameColor: '#E3E4E0' },
+  { dotColor: '#282116', frameColor: '#FFFFFF' },
   { dotColor: '#B8B8B8', frameColor: '#0D0D0D' },
   { dotColor: '#1A99E5', frameColor: '#D6EFFE' }
 ];
@@ -35,7 +35,7 @@ const ColorSchemePicker = ({ onSchemeChange }) => {
         {colorSchemes.map((scheme, index) => (
           <div
             key={index}
-            className={`color-scheme-circle ${index === activeScheme ? 'active' : ''}`}
+            className={`color-scheme-circle circle-${index} ${index === activeScheme ? 'active' : ''}`}
             onClick={() => handleSchemeChange(index)}
           >
             <div
