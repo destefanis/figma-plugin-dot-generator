@@ -5,7 +5,8 @@ const colorSchemes = [
 //   { dotColor: '#294172', frameColor: '#DCB7B6' },
   { dotColor: '#282116', frameColor: '#FFFFFF' },
   { dotColor: '#B8B8B8', frameColor: '#0D0D0D' },
-  { dotColor: '#1A99E5', frameColor: '#D6EFFE' }
+  // { dotColor: '#1A99E5', frameColor: '#D6EFFE' }
+  // Optional color schemes
 ];
 
 const ColorSchemePicker = ({ onSchemeChange }) => {
@@ -42,10 +43,10 @@ const ColorSchemePicker = ({ onSchemeChange }) => {
               className="color-scheme-half"
               style={{ backgroundColor: scheme.frameColor }}
             />
-            <div
+            {/* <div
               className="color-scheme-half"
               style={{ backgroundColor: scheme.dotColor }}
-            />
+            /> */}
           </div>
         ))}
       </div>

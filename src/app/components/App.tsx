@@ -49,12 +49,12 @@ function App() {
 
   return (
     <div className="App">
+      <Counter label="First ring" count={seed} onCountChange={setSeed} min={1} max={100} onEnterPress={handleGenerate} />
       <Counter label="Total rings" count={rings} onCountChange={setRings} min={1} max={100} onEnterPress={handleGenerate} />
-      <Counter label="First ring size" count={seed} onCountChange={setSeed} min={1} max={100} onEnterPress={handleGenerate} />
       <Counter label="Dot size" count={gridSize} onCountChange={setGridSize} min={1} max={100} onEnterPress={handleGenerate} />
       <DecimalCounter label="Dot scale" count={dotScale} onCountChange={setDotScale} min={0.1} max={3} step={0.1} onEnterPress={handleGenerate} />
       <ColorSchemePicker onSchemeChange={setColors} />
-      <ToggleSwitch label="Live Preview" isChecked={livePreview} onChange={setLivePreview} />
+      <ToggleSwitch label="Live preview" isChecked={livePreview} onChange={setLivePreview} />
 
       <div className="cta-button" onClick={handleGenerate}>
         Generate

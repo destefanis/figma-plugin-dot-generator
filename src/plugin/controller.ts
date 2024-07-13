@@ -1,4 +1,4 @@
-figma.showUI(__html__, { width: 240, height: 400 });
+figma.showUI(__html__, { width: 240, height: 388 });
 
 figma.ui.onmessage = msg => {
   if (msg.type === 'applyConfig') {
@@ -10,8 +10,16 @@ figma.ui.onmessage = msg => {
     // Check if a suitable frame is selected
     if (figma.currentPage.selection.length > 0) {
       const selectedNode = figma.currentPage.selection[0];
-      if (selectedNode.type === 'FRAME' && (selectedNode.name.includes('Dots') || selectedNode.children.some(child => child.name === 'Dots'))) {
-        frame = selectedNode;
+      if (selectedNode.type === 'FRAME') {
+        if (selectedNode.name.includes('Dots') || selectedNode.children.some(child => child.name === 'Dots')) {
+          frame = selectedNode;
+        } else {
+          // If the selected frame doesn't have "Dots", create a new "Dots" frame inside it
+          frame = figma.createFrame();
+          frame.name = 'Dots';
+          frame.fills = [{ type: "SOLID", color: frameColor }];
+          selectedNode.appendChild(frame);
+        }
       }
     }
 
@@ -31,10 +39,10 @@ figma.ui.onmessage = msg => {
         frame.x = lastFrame.x + lastFrame.width + 40;
         frame.y = lastFrame.y;
       }
-    } else {
+    } else if (!isNewFrame) {
       // Clear previous dots if updating the selected frame
       frame.children.forEach(child => {
-        if (child.type === 'ELLIPSE' || (child.type === 'FRAME' && child.name === 'Dots')) {
+        if (child.type === 'RECTANGLE') {
           child.remove();
         }
       });
@@ -44,8 +52,9 @@ figma.ui.onmessage = msg => {
 
     // Function to draw a dot
     const drawDot = (x, y, size, fill) => {
-      const c = figma.createEllipse();
+      const c = figma.createRectangle();
       c.resize(size, size);
+      c.cornerRadius = size / 2;
       c.x = x - size / 2;
       c.y = y - size / 2;
       c.fills = fill;
