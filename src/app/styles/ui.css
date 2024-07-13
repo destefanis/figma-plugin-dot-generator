@@ -1,6 +1,5 @@
 .App {
   font-family: Inter, sans-serif;
-  font-family: "SN Pro";
   /* padding: 20px; */
 }
 
@@ -50,7 +49,7 @@
   text-align: center;
   font-size: 20px;
   font-weight: 800;
-  font-family: "SN Pro", "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
   border: none;
   outline: none;
   background: none;
@@ -96,7 +95,7 @@
   text-align: center;
   font-size: 20px;
   font-weight: 800;
-  font-family: "SN Pro", "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
   font-variant-numeric: tabular-nums;
 }
 
@@ -121,7 +120,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "SN Pro", "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 20px;
   font-weight: 800;
   z-index: 1;
