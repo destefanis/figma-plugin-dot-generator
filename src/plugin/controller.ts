@@ -6,6 +6,7 @@ figma.ui.onmessage = msg => {
 
     let frame: FrameNode | null = null;
     let isNewFrame = false;
+    let resizeFrame = false;
 
     // Check if a suitable frame is selected
     if (figma.currentPage.selection.length > 0) {
@@ -17,8 +18,9 @@ figma.ui.onmessage = msg => {
           // If the selected frame doesn't have "Dots", create a new "Dots" frame inside it
           frame = figma.createFrame();
           frame.name = 'Dots';
-          frame.fills = [{ type: "SOLID", color: frameColor }];
+          frame.fills = [];
           selectedNode.appendChild(frame);
+          resizeFrame = true;
         }
       }
     }
@@ -29,6 +31,7 @@ figma.ui.onmessage = msg => {
       frame.name = 'Dots';
       frame.fills = [{ type: "SOLID", color: frameColor }];
       isNewFrame = true;
+      resizeFrame = true;
       
       // Position the new frame 40px away from the last frame
       const frames = figma.currentPage.findAll(node => node.type === 'FRAME') as FrameNode[];
@@ -39,7 +42,7 @@ figma.ui.onmessage = msg => {
         frame.x = lastFrame.x + lastFrame.width + 40;
         frame.y = lastFrame.y;
       }
-    } else if (!isNewFrame) {
+    } else {
       // Clear previous dots if updating the selected frame
       frame.children.forEach(child => {
         if (child.type === 'RECTANGLE') {
@@ -85,13 +88,14 @@ figma.ui.onmessage = msg => {
     frame.appendChild(c);
     dots.push(c);
 
-    // Group the dots and adjust frame size
-    const group = figma.group(dots, frame);
-    frame.resize(group.width + padding * 2, group.height + padding * 2);
-    group.x = padding;
-    group.y = padding;
-
-    figma.ungroup(group);
+    // Group the dots and adjust frame size if it's a new frame
+    if (resizeFrame) {
+      const group = figma.group(dots, frame);
+      frame.resize(group.width + padding * 2, group.height + padding * 2);
+      group.x = padding;
+      group.y = padding;
+      figma.ungroup(group);
+    }
 
     // Select the frame
     figma.currentPage.selection = [frame];
